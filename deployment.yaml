@@ -21,7 +21,7 @@ spec:
           # CRITICAL FIX: The image name must include '-app' 
           # and use the SHA tag from your CI pipeline.
           # The CI pipeline will replace ${{ github.sha }} with the actual SHA.
-          image: ghcr.io/berrouyne/kubernetes-cicd-tutorial:latest
+          image: ghcr.io/berrouyne/kubernetes-cicd-tutorial-app:7ea8b9abace78c426352bfab3c31041d78df9670
           ports:
             - containerPort: 3000
 
