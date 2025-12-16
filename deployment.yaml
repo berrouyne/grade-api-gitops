@@ -13,11 +13,15 @@ spec:
       labels:
         app: grade-submission-api
     spec:
+      # Ensure this secret name matches the one you created (ghcr-secret)
       imagePullSecrets:
         - name: ghcr-secret
       containers:
         - name: grade-submission-api
-          image: ghcr.io/berrouyne/kubernetes-cicd-tutorial:v1.0.0
+          # CRITICAL FIX: The image name must include '-app' 
+          # and use the SHA tag from your CI pipeline.
+          # The CI pipeline will replace ${{ github.sha }} with the actual SHA.
+          image: ghcr.io/berrouyne/kubernetes-cicd-tutorial-app:${{ github.sha }}
           ports:
             - containerPort: 3000
 
@@ -28,9 +32,12 @@ metadata:
   name: grade-submission-api
   namespace: default
 spec:
+  # The selector must match the pod labels
   selector:
     app: grade-submission-api
   ports:
+    # Service Port (what the cluster hits)
     - port: 80
+      # Target Port (what the container listens on)
       targetPort: 3000
   type: ClusterIP
