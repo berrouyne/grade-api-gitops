@@ -32,13 +32,10 @@ metadata:
   name: grade-submission-api
   namespace: default
 spec:
-  # The selector must match the pod labels
+  type: NodePort
   selector:
     app: grade-submission-api
   ports:
-    # Service Port (what the cluster hits)
     - port: 80
-      # Target Port (what the container listens on)
       targetPort: 3000
       nodePort: 30080
-  type: ClusterIP
